@@ -3,6 +3,11 @@ version: '3'
 services:
   db:
     image: postgres
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
   web:
     image: adeleh/djangoapp
     command: python2 ./testdockerdjango/manage.py runserver 0.0.0.0:8000
@@ -14,8 +19,8 @@ services:
           memory: 50M
       restart_policy:
         condition: on-failure
-    volumes:
-      - .:/django
+      placement:
+        constraints: [node.role != manager]
     ports:
       - "8000:8000"
     depends_on:
