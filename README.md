@@ -59,7 +59,7 @@ $> docker-machine create --driver virtualbox myvm3
 
 $> docker-machine start myvm1
 
-$> docker-machine ssh myvm1 "docker swarm init --advertise-addr myvm1_ip:2376"
+$> docker-machine ssh myvm1 "docker swarm init --advertise-addr myvm1_ip"
 
 $> docker-machine ssh myvm2 "docker join --token TOKEN myvm1_ip:2377"
 $> docker-machine ssh myvm3 "docker join --token TOKEN myvm1_ip:2377"
