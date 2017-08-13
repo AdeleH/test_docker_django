@@ -78,6 +78,6 @@ $> docker-machine ssh myvm1 "docker stack ps djangoapp -f "desired-state=Running
 
 ```
 
-Check out myvm2_ip:8000
+Check out myvm_ip:8000
 
 
