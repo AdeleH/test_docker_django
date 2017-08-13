@@ -1,16 +1,25 @@
 version: '3'
-
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx01
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+    networks:
+      - webnet
   db:
-    image: postgres
+    image: postgres:latest
+    container_name: db01
     deploy:
       placement:
         constraints: [node.role == manager]
     networks:
       - webnet
   web:
-    image: adeleh/djangoapp
-    command: python2 ./testdockerdjango/manage.py runserver 0.0.0.0:8000
+    image: adeleh/djangoapp2
+    container_name: web01
     deploy:
       replicas: 5
       resources:
@@ -19,12 +28,10 @@ services:
           memory: 50M
       restart_policy:
         condition: on-failure
-      placement:
-        constraints: [node.role != manager]
-    ports:
-      - "8000:8000"
     depends_on:
       - db
+    ports:
+      - "8000:8000"
     networks:
       - webnet
 networks:

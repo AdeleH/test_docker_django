@@ -15,7 +15,7 @@ ADD testdockerdjango/ /django
 RUN pip install -r requirements.txt
 
 # Run server
-CMD python manage.py runserver 0.0.0.0:8000 && python manage.py makemigrations && python manage.py migrate
+CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
