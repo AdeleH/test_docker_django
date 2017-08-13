@@ -4,13 +4,18 @@ FROM python:2.7-slim
 ENV PYTHONUNBUFFERED 1
 
 # Folder into which the source will be copied inside the destination container
+RUN mkdir -p /django
 WORKDIR /django
 
 # Add all to working dir
-ADD . /django
+ADD requirements.txt /django/requirements.txt
+ADD testdockerdjango/ /django
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+
+# Run server
+CMD python manage.py runserver 0.0.0.0:8000 && python manage.py makemigrations && python manage.py migrate
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
